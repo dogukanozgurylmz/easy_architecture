@@ -2,6 +2,8 @@ import 'dart:developer';
 import 'package:easy_architecture/app/core/enums/app_padding.dart';
 import 'package:easy_architecture/app/core/enums/app_radius.dart';
 import 'package:easy_architecture/app/core/enums/space.dart';
+import 'package:easy_architecture/app/core/extensions/animations.dart';
+import 'package:easy_architecture/app/core/extensions/padding_extensions.dart';
 import 'package:easy_architecture/app/core/get_it/get_it.dart';
 import 'package:easy_architecture/app/core/hive/hive.dart';
 import 'package:easy_architecture/app/core/widgets/buttons/app_button.dart';
@@ -25,9 +27,14 @@ Future<void> main() async {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
 
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,7 +53,7 @@ class MainApp extends StatelessWidget {
             children: [
               const Text('Hello World!'),
               SpaceHeight.m.value,
-              const Text('Hello World!'),
+              const Text('Hello World!').symmetricPadding(vertical: 20),
               SpaceHeight.m.value,
               Container(
                 padding: AppPaddingAll.xl.value,
@@ -72,11 +79,25 @@ class MainApp extends StatelessWidget {
                 text: "Large Button",
                 onPressed: () {},
                 backgroundColor: Colors.amber,
-              ),
+              ).allPadding(50),
             ],
-          ),
+          ).fadeIn(this),
         ),
       ),
     );
+  }
+}
+
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
